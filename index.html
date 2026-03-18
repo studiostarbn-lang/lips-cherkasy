@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Збільшення губ у Черкасах — Анастасія Коваль</title>
+<title>Збільшення губ у Черкасах — Анастасія Мельникова</title>
+<meta name="description" content="Збільшення губ філерами у Черкасах. Природний обʼєм, симетрія, сертифіковані препарати. Безкоштовна консультація та запис онлайн.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- GA4: replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -137,6 +146,11 @@
     background: linear-gradient(160deg, #3D1A22, #5C2030);
     display: flex; align-items: center; justify-content: center;
   }
+  .hero-img.is-photo {
+    display: block;
+    background: none;
+    object-position: 50% 25%;
+  }
   .hero-img-placeholder {
     font-family: var(--font-display);
     font-size: 1.2rem; color: rgba(255,255,255,0.3);
@@ -201,6 +215,13 @@
     font-family: var(--font-display); font-size: 1rem; color: var(--rose);
     text-align: center; padding: 40px;
     position: relative;
+  }
+  .about-img.is-photo {
+    display: block;
+    padding: 0;
+    background: none;
+    width: 100%;
+    object-position: 50% 20%;
   }
   .about-img::after {
     content: '';
@@ -278,6 +299,12 @@
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
   }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .gallery-item:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
   .gallery-item:nth-child(2) { margin-top: 30px; }
   .gallery-badge {
@@ -340,6 +367,16 @@
   }
   .form-submit:hover { background: #A0273D; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,68,90,0.4); }
   .form-note { text-align: center; font-size: 0.72rem; color: var(--gray); margin-top: 12px; }
+  .form-status {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    display: none;
+  }
+  .form-status.success { display: block; background: #E9F7EE; color: #1E6B3A; border: 1px solid rgba(30,107,58,0.18); }
+  .form-status.error { display: block; background: #FCEBEC; color: #8A1F28; border: 1px solid rgba(138,31,40,0.18); }
 
   /* ── WHY ── */
   .why { background: var(--white); }
@@ -380,6 +417,13 @@
     display: flex; align-items: center; justify-content: center;
     font-family: var(--font-display); font-size: 1rem; color: var(--rose);
     text-align: center; padding: 40px;
+  }
+  .spec-photo.is-photo {
+    display: block;
+    padding: 0;
+    background: none;
+    width: 100%;
+    object-position: 50% 20%;
   }
   .spec-name { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
   .spec-role { font-size: 0.82rem; color: var(--rose); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
@@ -618,7 +662,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Анастасія <span>Коваль</span></div>
+  <div class="nav-logo">Анастасія <span>Мельникова</span></div>
   <ul class="nav-links">
     <li><a href="#about">Про мене</a></li>
     <li><a href="#procedure">Процедура</a></li>
@@ -642,9 +686,7 @@
   </div>
   <div class="hero-stats">
     <div class="hero-img-wrap">
-      <div class="hero-img">
-        <div class="hero-img-placeholder">📸 Фото<br>косметолога</div>
-      </div>
+      <img class="hero-img is-photo" src="assets/anastasiia-melnykova.png" alt="Анастасія Мельникова — косметолог у Черкасах" loading="eager" decoding="async">
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
       <div class="stat-card">
@@ -673,7 +715,7 @@
   <div class="section-label">Про процедуру</div>
   <div class="section-title">Не просто збільшення —<br><em>це мистецтво форми</em></div>
   <div class="about-grid">
-    <div class="about-img fade-in">📸 Фото процедури<br><br><small style="color:#B08090">або до/після результат</small></div>
+    <img class="about-img is-photo fade-in" src="assets/work-2.png" alt="Збільшення губ — приклад роботи до/після" loading="lazy" decoding="async">
     <div class="about-text fade-in">
       <div class="section-sub">Більшість клієнток приходять не за «більшими губами» — вони хочуть виглядати свіжо і жіночно. Щоб оточуючі не питали «ти щось зробила?», а казали «ти чудово виглядаєш».</div>
       <div class="about-features">
@@ -752,20 +794,17 @@
   </div>
   <div class="gallery fade-in">
     <div class="gallery-item">
-      <span style="font-size:3rem;">📸</span>
-      <span>Фото роботи 1</span>
+      <img src="assets/work-1.png" alt="Результат збільшення губ — робота 1" loading="lazy" decoding="async">
       <span class="gallery-tag">До / Після</span>
       <span class="gallery-badge">Натуральний об'єм</span>
     </div>
     <div class="gallery-item">
-      <span style="font-size:3rem;">📸</span>
-      <span>Фото роботи 2</span>
+      <img src="assets/work-3.png" alt="Результат збільшення губ — робота 2" loading="lazy" decoding="async">
       <span class="gallery-tag">До / Після</span>
       <span class="gallery-badge">Корекція форми</span>
     </div>
     <div class="gallery-item">
-      <span style="font-size:3rem;">📸</span>
-      <span>Фото роботи 3</span>
+      <img src="assets/work-2.png" alt="Результат збільшення губ — робота 3" loading="lazy" decoding="async">
       <span class="gallery-tag">До / Після</span>
       <span class="gallery-badge">Перший раз</span>
     </div>
@@ -788,12 +827,13 @@
   <div class="offer-form fade-in">
     <div class="form-title">Записатись на чек-ап</div>
     <div class="form-sub">Заповни форму — передзвоню протягом 15 хвилин</div>
-    <form onsubmit="return false;">
-      <div class="form-group"><input type="text" placeholder="Твоє ім'я" required></div>
-      <div class="form-group"><input type="tel" placeholder="Номер телефону" required></div>
-      <div class="form-group"><input type="text" placeholder="Зручний час для дзвінка"></div>
-      <button type="submit" class="form-submit" onclick="this.textContent='✓ Заявку прийнято!';this.style.background='#2D8A4E'">Записатись безкоштовно →</button>
+    <form id="lead-form">
+      <div class="form-group"><input type="text" placeholder="Твоє ім'я" id="lead-name" autocomplete="name"></div>
+      <div class="form-group"><input type="tel" placeholder="Номер телефону" id="lead-phone" required autocomplete="tel"></div>
+      <div class="form-group"><input type="text" placeholder="Зручний час для дзвінка" id="lead-time" autocomplete="off"></div>
+      <button type="submit" class="form-submit" id="lead-submit">Записатись безкоштовно →</button>
     </form>
+    <div class="form-status" id="lead-status"></div>
     <div class="form-note">Натискаючи кнопку, ти погоджуєшся з обробкою персональних даних</div>
   </div>
 </section>
@@ -841,11 +881,11 @@
 <!-- SPECIALIST -->
 <section class="specialist">
   <div class="section-label">Хто буде робити</div>
-  <div class="section-title">Твій майстер —<br><em>Анастасія Коваль</em></div>
+  <div class="section-title">Твій майстер —<br><em>Анастасія Мельникова</em></div>
   <div class="spec-grid fade-in">
-    <div class="spec-photo">📸 Фото майстра</div>
+    <img class="spec-photo is-photo" src="assets/anastasiia-melnykova.png" alt="Анастасія Мельникова" loading="lazy" decoding="async">
     <div>
-      <div class="spec-name">Анастасія Коваль</div>
+      <div class="spec-name">Анастасія Мельникова</div>
       <div class="spec-role">Косметолог-естетист · Черкаси</div>
       <div class="spec-bio">7 років у естетичній косметології. Спеціалізація — контурна пластика губ і корекція зони обличчя. Навчалась у Києві та Варшаві, регулярно проходжу майстер-класи провідних European aesthetics докторів. Автор протоколу «Природний об'єм» — для тих хто хоче результат без «зробленості».</div>
       <div class="spec-stats">
@@ -994,12 +1034,11 @@
 <footer>
   <div class="footer-grid">
     <div>
-      <div class="footer-logo">Анастасія <span>Коваль</span></div>
+      <div class="footer-logo">Анастасія <span>Мельникова</span></div>
       <div class="footer-bio">Косметолог-естетист у Черкасах. Спеціалізація — збільшення губ і контурна пластика. Авторський протокол «Природний об'єм» для природного результату.</div>
       <div class="footer-socials" style="margin-top:24px;">
-        <a href="#" class="social-link">IG</a>
-        <a href="#" class="social-link">FB</a>
-        <a href="#" class="social-link">TG</a>
+        <a href="https://www.instagram.com/melnykova_cosmetolog/" class="social-link" aria-label="Instagram" rel="noopener" target="_blank">IG</a>
+        <a href="https://t.me/melnykovaanastasiia" class="social-link" aria-label="Telegram" rel="noopener" target="_blank">TG</a>
       </div>
     </div>
     <div class="footer-col">
@@ -1014,12 +1053,13 @@
       <h4>Контакти</h4>
       <a href="tel:+380980000000">+38 098 000-00-00</a>
       <a href="#">м. Черкаси</a>
-      <a href="#">Instagram</a>
+      <a href="https://www.instagram.com/melnykova_cosmetolog/" rel="noopener" target="_blank">Instagram</a>
       <a href="#">WhatsApp</a>
+      <a href="https://t.me/melnykovaanastasiia" rel="noopener" target="_blank">Telegram: @melnykovaanastasiia</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <div>© 2025 Анастасія Коваль · Всі права захищені</div>
+    <div>© 2026 Анастасія Мельникова · Всі права захищені</div>
     <a href="tel:+380980000000" class="footer-phone">+38 098 000-00-00</a>
   </div>
 </footer>
@@ -1091,8 +1131,17 @@ function submitQuiz() {
   const name = document.getElementById('quiz-name').value;
   const phone = document.getElementById('quiz-phone').value;
   if (!phone) { alert('Будь ласка, вкажи номер телефону'); return; }
-  document.getElementById('quiz-result').style.display = 'none';
-  document.getElementById('quiz-success').style.display = 'block';
+  submitLead({
+    source: 'quiz',
+    name,
+    phone,
+    answers
+  }).then(() => {
+    document.getElementById('quiz-result').style.display = 'none';
+    document.getElementById('quiz-success').style.display = 'block';
+  }).catch(() => {
+    alert('Не вдалось відправити заявку. Спробуй ще раз або напиши в месенджер.');
+  });
 }
 
 // FAQ
@@ -1107,6 +1156,69 @@ const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+async function submitLead(payload) {
+  const res = await fetch('/api/lead', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const txt = await res.text().catch(() => '');
+    throw new Error(txt || `HTTP ${res.status}`);
+  }
+  const data = await res.json().catch(() => ({}));
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        event_category: 'lead',
+        event_label: payload?.source || 'form'
+      });
+    }
+  } catch (_) {}
+  return data;
+}
+
+const leadForm = document.getElementById('lead-form');
+if (leadForm) {
+  leadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('lead-submit');
+    const status = document.getElementById('lead-status');
+    const name = document.getElementById('lead-name')?.value || '';
+    const phone = document.getElementById('lead-phone')?.value || '';
+    const time = document.getElementById('lead-time')?.value || '';
+
+    status.className = 'form-status';
+    status.style.display = 'none';
+
+    if (!phone) {
+      status.textContent = 'Будь ласка, вкажи номер телефону.';
+      status.classList.add('error');
+      return;
+    }
+
+    const oldText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Відправляю...';
+
+    try {
+      await submitLead({ source: 'offer_form', name, phone, time });
+      btn.textContent = '✓ Заявку прийнято!';
+      btn.style.background = '#2D8A4E';
+      status.textContent = 'Дякую! Я звʼяжусь з тобою протягом 15 хвилин.';
+      status.classList.add('success');
+      leadForm.reset();
+    } catch (err) {
+      btn.textContent = oldText;
+      status.textContent = 'Не вдалось відправити заявку. Спробуй ще раз або подзвони.';
+      status.classList.add('error');
+      console.error(err);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
 
 updateQuiz();
 </script>

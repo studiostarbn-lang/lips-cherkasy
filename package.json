@@ -1,0 +1,10 @@
+{
+  "name": "lips-cherkasy",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Landing page + lead capture API (Telegram)",
+  "engines": {
+    "node": ">=18"
+  }
+}
+
