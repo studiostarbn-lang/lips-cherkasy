@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Збільшення губ у Черкасах — Анастасія Коваль</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #C8445A;
+    --rose-light: #F5D5DB;
+    --rose-pale: #FDF0F2;
+    --dark: #1C1C1E;
+    --gray: #6B6B6B;
+    --light: #F9F5F3;
+    --white: #FFFFFF;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+    --shadow: 0 8px 40px rgba(200,68,90,0.12);
+    --shadow-sm: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,68,90,0.1);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--rose); }
+  .nav-phone {
+    font-size: 0.85rem; font-weight: 700;
+    color: var(--rose);
+    text-decoration: none;
+    border: 1.5px solid var(--rose);
+    padding: 8px 20px; border-radius: 30px;
+    transition: all 0.25s;
+  }
+  .nav-phone:hover { background: var(--rose); color: #fff; }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 600; color: var(--dark); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--rose); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1C1C1E 0%, #2D1F22 50%, #3D1A22 100%);
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(200,68,90,0.25) 0%, transparent 70%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 600px;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(200,68,90,0.2);
+    border: 1px solid rgba(200,68,90,0.4);
+    color: #F5A0AC;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 30px;
+    margin-bottom: 28px;
+  }
+  .hero-badge::before { content: '✦'; font-size: 0.6rem; }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 600; line-height: 1.1;
+    color: #fff; margin-bottom: 24px;
+  }
+  .hero h1 em { color: var(--rose); font-style: italic; }
+  .hero p {
+    font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,0.7);
+    margin-bottom: 40px; max-width: 480px;
+  }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .btn-primary {
+    background: var(--rose); color: #fff;
+    padding: 16px 36px; border-radius: 50px;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 30px rgba(200,68,90,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,68,90,0.5); }
+  .btn-ghost {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.85rem; font-weight: 600;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none; transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: #fff; }
+  .btn-ghost::after { content: '→'; }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    margin-left: auto;
+    display: flex; flex-direction: column; gap: 16px;
+    animation: fadeUp 0.9s 0.2s ease both;
+  }
+  .hero-img-wrap {
+    position: relative;
+    width: clamp(260px, 35vw, 460px);
+  }
+  .hero-img {
+    width: 100%;
+    border-radius: 20px;
+    aspect-ratio: 3/4; object-fit: cover;
+    background: linear-gradient(160deg, #3D1A22, #5C2030);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img-placeholder {
+    font-family: var(--font-display);
+    font-size: 1.2rem; color: rgba(255,255,255,0.3);
+    text-align: center; padding: 40px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px; padding: 16px 24px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.2rem; font-weight: 600; color: var(--rose);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+  /* ── LOGOS/TRUST ── */
+  .trust-bar {
+    background: var(--light);
+    padding: 28px 5%;
+    display: flex; align-items: center; justify-content: center;
+    gap: 48px; flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.78rem; font-weight: 600; color: var(--gray);
+    letter-spacing: 0.05em;
+  }
+  .trust-icon { font-size: 1.3rem; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 80px 5%; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--rose); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600; line-height: 1.2; color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .section-title em { color: var(--rose); font-style: italic; }
+  .section-sub {
+    font-size: 0.95rem; color: var(--gray); line-height: 1.7; max-width: 560px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center; margin-top: 60px;
+  }
+  .about-img {
+    border-radius: 24px;
+    aspect-ratio: 4/5; object-fit: cover;
+    background: linear-gradient(160deg, var(--rose-light), var(--rose-pale));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 1rem; color: var(--rose);
+    text-align: center; padding: 40px;
+    position: relative;
+  }
+  .about-img::after {
+    content: '';
+    position: absolute; bottom: -20px; right: -20px;
+    width: 120px; height: 120px;
+    background: var(--rose-pale);
+    border-radius: 50%; z-index: -1;
+  }
+  .about-text { }
+  .about-features { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+  .feature-item {
+    display: flex; gap: 16px; align-items: flex-start;
+    padding: 20px; border-radius: 16px; background: var(--light);
+    transition: all 0.3s;
+  }
+  .feature-item:hover { background: var(--rose-pale); transform: translateX(4px); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--rose); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .feature-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .feature-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+
+  /* ── PROCEDURE ── */
+  .procedure { background: var(--dark); }
+  .procedure .section-title { color: #fff; }
+  .procedure .section-label { color: #F5A0AC; }
+  .procedure .section-sub { color: rgba(255,255,255,0.6); }
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px; margin-top: 60px;
+    border-radius: 20px; overflow: hidden;
+  }
+  .step-card {
+    background: rgba(255,255,255,0.04);
+    padding: 36px 28px;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .step-card:hover { background: rgba(200,68,90,0.15); }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem; font-weight: 600;
+    color: rgba(200,68,90,0.25); line-height: 1;
+    margin-bottom: 16px;
+  }
+  .step-title { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .step-time {
+    display: inline-block;
+    background: rgba(200,68,90,0.2); color: #F5A0AC;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 10px; border-radius: 20px; margin-bottom: 12px;
+  }
+  .step-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── RESULTS ── */
+  .results { background: var(--light); }
+  .results-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; margin-top: 48px;
+  }
+  .gallery-item {
+    border-radius: 16px; overflow: hidden;
+    background: linear-gradient(160deg, #F5D5DB, #FDF0F2);
+    aspect-ratio: 3/4;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+    font-family: var(--font-display); font-size: 1rem; color: var(--rose);
+    text-align: center; padding: 24px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .gallery-item:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .gallery-item:nth-child(2) { margin-top: 30px; }
+  .gallery-badge {
+    position: absolute; bottom: 16px; left: 16px;
+    background: var(--rose); color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.7rem; font-weight: 700;
+    padding: 6px 14px; border-radius: 20px;
+  }
+  .gallery-tag {
+    position: absolute; top: 16px; left: 16px;
+    background: rgba(255,255,255,0.9); color: var(--dark);
+    font-family: var(--font-body);
+    font-size: 0.7rem; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* ── OFFER ── */
+  .offer {
+    background: linear-gradient(135deg, var(--rose) 0%, #A0273D 100%);
+    padding: 80px 5%;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .offer-left h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600; color: #fff; line-height: 1.15;
+    margin-bottom: 24px;
+  }
+  .offer-left p { color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; margin-bottom: 36px; }
+  .offer-perks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .offer-perk {
+    display: flex; gap: 12px; align-items: center;
+    color: #fff; font-size: 0.85rem; font-weight: 600;
+  }
+  .offer-perk::before { content: '✓'; background: rgba(255,255,255,0.2); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; }
+  .offer-form {
+    background: #fff; border-radius: 24px; padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .form-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .form-sub { font-size: 0.82rem; color: var(--gray); margin-bottom: 28px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group input {
+    width: 100%; padding: 14px 18px;
+    border: 1.5px solid #E8E8E8; border-radius: 12px;
+    font-family: var(--font-body); font-size: 0.88rem; color: var(--dark);
+    transition: border-color 0.2s; outline: none;
+    background: var(--light);
+  }
+  .form-group input:focus { border-color: var(--rose); background: #fff; }
+  .form-group input::placeholder { color: #BBB; }
+  .form-submit {
+    width: 100%; padding: 16px;
+    background: var(--rose); color: #fff; border: none;
+    border-radius: 12px; font-family: var(--font-body);
+    font-size: 0.9rem; font-weight: 700; cursor: pointer;
+    transition: all 0.3s; letter-spacing: 0.03em;
+  }
+  .form-submit:hover { background: #A0273D; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,68,90,0.4); }
+  .form-note { text-align: center; font-size: 0.72rem; color: var(--gray); margin-top: 12px; }
+
+  /* ── WHY ── */
+  .why { background: var(--white); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+  .why-card {
+    padding: 36px 28px; border-radius: 20px;
+    border: 1.5px solid #F0F0F0;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--rose); transform: scaleX(0);
+    transition: transform 0.3s; transform-origin: left;
+  }
+  .why-card:hover { border-color: var(--rose-light); box-shadow: var(--shadow); transform: translateY(-4px); }
+  .why-card:hover::before { transform: scaleX(1); }
+  .why-num {
+    font-family: var(--font-display); font-size: 3rem; font-weight: 600;
+    color: var(--rose-light); line-height: 1; margin-bottom: 16px;
+  }
+  .why-title { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .why-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── SPECIALIST ── */
+  .specialist { background: var(--light); }
+  .spec-grid {
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 80px; align-items: center; margin-top: 60px;
+  }
+  .spec-photo {
+    border-radius: 24px;
+    aspect-ratio: 3/4; object-fit: cover;
+    background: linear-gradient(160deg, var(--rose-light), #E8C0C8);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 1rem; color: var(--rose);
+    text-align: center; padding: 40px;
+  }
+  .spec-name { font-family: var(--font-display); font-size: 2.2rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .spec-role { font-size: 0.82rem; color: var(--rose); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+  .spec-bio { font-size: 0.9rem; color: var(--gray); line-height: 1.8; margin-bottom: 36px; }
+  .spec-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 36px; }
+  .spec-stat { text-align: center; }
+  .spec-stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 600; color: var(--rose); line-height: 1; }
+  .spec-stat-label { font-size: 0.75rem; color: var(--gray); margin-top: 4px; }
+  .certs { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cert-tag {
+    background: var(--white); border: 1px solid var(--rose-light);
+    color: var(--dark); font-size: 0.75rem; font-weight: 600;
+    padding: 8px 16px; border-radius: 30px;
+  }
+
+  /* ── REVIEWS ── */
+  .reviews { background: var(--dark); padding: 80px 5%; }
+  .reviews .section-title { color: #fff; }
+  .reviews .section-label { color: #F5A0AC; }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-top: 60px;
+  }
+  .review-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 32px;
+    transition: all 0.3s;
+  }
+  .review-card:hover { background: rgba(200,68,90,0.12); border-color: rgba(200,68,90,0.3); }
+  .review-stars { color: var(--rose); font-size: 1rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .review-text { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 12px; }
+  .review-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), #A0273D);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 1.2rem; font-weight: 600; color: #fff;
+  }
+  .review-name { font-size: 0.85rem; font-weight: 700; color: #fff; }
+  .review-meta { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+  /* ── FAQ ── */
+  .faq { background: var(--white); }
+  .faq-grid { max-width: 760px; margin: 60px auto 0; }
+  .faq-item {
+    border-bottom: 1px solid #F0F0F0;
+    padding: 24px 0; cursor: pointer;
+  }
+  .faq-question {
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    font-size: 0.95rem; font-weight: 600; color: var(--dark);
+  }
+  .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--light); color: var(--rose);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; font-weight: 300; flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .faq-item.open .faq-icon { background: var(--rose); color: #fff; transform: rotate(45deg); }
+  .faq-answer {
+    font-size: 0.88rem; color: var(--gray); line-height: 1.8;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-answer { max-height: 200px; padding-top: 16px; }
+
+  /* ── QUIZ ── */
+  .quiz-section {
+    background: var(--light);
+    padding: 80px 5%;
+    text-align: center;
+  }
+  .quiz-wrap {
+    background: #fff; border-radius: 28px;
+    max-width: 680px; margin: 48px auto 0;
+    padding: 52px 48px;
+    box-shadow: 0 20px 60px rgba(200,68,90,0.1);
+    border: 1px solid var(--rose-light);
+  }
+  .quiz-progress-wrap { margin-bottom: 36px; }
+  .quiz-step-label {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em;
+    color: var(--rose); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .quiz-progress {
+    height: 4px; background: #F0F0F0; border-radius: 4px; overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%; background: var(--rose); border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+  .quiz-q {
+    font-family: var(--font-display);
+    font-size: 1.7rem; font-weight: 600; color: var(--dark);
+    line-height: 1.3; margin-bottom: 32px;
+  }
+  .quiz-options { display: grid; gap: 12px; text-align: left; }
+  .quiz-opt {
+    padding: 16px 22px; border-radius: 14px;
+    border: 1.5px solid #EBEBEB; background: var(--light);
+    font-size: 0.9rem; font-weight: 500; color: var(--dark);
+    cursor: pointer; transition: all 0.25s;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .quiz-opt::before {
+    content: ''; width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid #DDD; flex-shrink: 0; transition: all 0.2s;
+  }
+  .quiz-opt:hover { border-color: var(--rose); background: var(--rose-pale); }
+  .quiz-opt.selected { border-color: var(--rose); background: var(--rose-pale); }
+  .quiz-opt.selected::before { background: var(--rose); border-color: var(--rose); box-shadow: inset 0 0 0 3px #fff; }
+  .quiz-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 32px; gap: 16px;
+  }
+  .quiz-btn-next {
+    background: var(--rose); color: #fff;
+    padding: 14px 36px; border-radius: 50px; border: none;
+    font-family: var(--font-body); font-size: 0.88rem; font-weight: 700;
+    cursor: pointer; transition: all 0.3s; letter-spacing: 0.03em;
+    margin-left: auto;
+  }
+  .quiz-btn-next:hover { background: #A0273D; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,68,90,0.4); }
+  .quiz-btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+  .quiz-result { display: none; text-align: center; }
+  .quiz-result h3 { font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--dark); margin-bottom: 12px; }
+  .quiz-result p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; margin-bottom: 28px; }
+  .quiz-result-form { display: flex; flex-direction: column; gap: 12px; }
+  .quiz-result-form input {
+    padding: 14px 18px; border: 1.5px solid #E8E8E8; border-radius: 12px;
+    font-family: var(--font-body); font-size: 0.88rem; outline: none;
+    transition: border-color 0.2s; background: var(--light);
+  }
+  .quiz-result-form input:focus { border-color: var(--rose); }
+  .quiz-result-form button {
+    padding: 16px; background: var(--rose); color: #fff; border: none;
+    border-radius: 12px; font-family: var(--font-body); font-size: 0.9rem;
+    font-weight: 700; cursor: pointer; transition: all 0.3s;
+  }
+  .quiz-result-form button:hover { background: #A0273D; }
+  .quiz-success { display: none; text-align: center; padding: 20px 0; }
+  .quiz-success .checkmark { font-size: 3rem; margin-bottom: 16px; }
+  .quiz-success h3 { font-family: var(--font-display); font-size: 2rem; color: var(--dark); margin-bottom: 12px; }
+  .quiz-success p { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    padding: 60px 5% 32px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px; margin-bottom: 48px;
+  }
+  .footer-logo {
+    font-family: var(--font-display); font-size: 1.8rem;
+    font-weight: 600; color: #fff; margin-bottom: 16px;
+  }
+  .footer-logo span { color: var(--rose); }
+  .footer-bio { font-size: 0.82rem; line-height: 1.8; max-width: 320px; }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; }
+  .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.65); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--rose); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    font-size: 0.75rem;
+  }
+  .footer-phone { color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: 700; font-family: var(--font-display); }
+  .footer-socials { display: flex; gap: 12px; }
+  .social-link {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.6); font-size: 0.8rem;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .social-link:hover { border-color: var(--rose); color: var(--rose); }
+
+  /* ── STICKY CTA ── */
+  .sticky-cta {
+    position: fixed; bottom: 24px; right: 24px; z-index: 50;
+    background: var(--rose); color: #fff;
+    padding: 14px 24px; border-radius: 50px;
+    font-size: 0.82rem; font-weight: 700;
+    text-decoration: none; box-shadow: 0 8px 30px rgba(200,68,90,0.5);
+    transition: all 0.3s;
+    animation: bounce 2s 3s ease-in-out;
+  }
+  .sticky-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(200,68,90,0.6); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hero { flex-direction: column; padding-top: 100px; }
+    .hero-stats { margin: 40px 0 0; flex-direction: row; flex-wrap: wrap; }
+    .about-grid, .spec-grid, .offer { grid-template-columns: 1fr; gap: 40px; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .gallery-item:nth-child(2) { margin-top: 0; }
+    .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    .quiz-wrap { padding: 36px 28px; }
+    .hero-img-wrap { width: 100%; max-width: 340px; margin: 0 auto; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 60px 5%; }
+    .why-grid { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr; }
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+    .spec-stats { grid-template-columns: repeat(3,1fr); }
+    .offer { padding: 60px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Анастасія <span>Коваль</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Про мене</a></li>
+    <li><a href="#procedure">Процедура</a></li>
+    <li><a href="#results">Результати</a></li>
+    <li><a href="#reviews">Відгуки</a></li>
+    <li><a href="#quiz">Запис</a></li>
+  </ul>
+  <a href="tel:+380980000000" class="nav-phone">+38 098 000-00-00</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Черкаси · Естетична косметологія</div>
+    <h1>Губи, які<br>виглядають <em>природно</em></h1>
+    <p>Збільшення губ філерами за авторським протоколом «Природний об'єм». 60 хвилин — результат 8–12 місяців. Без «качиного» ефекту і без тижня набряків.</p>
+    <div class="hero-cta">
+      <a href="#quiz" class="btn-primary">Записатись на чек-ап</a>
+      <a href="#results" class="btn-ghost">Дивитись роботи</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-img-wrap">
+      <div class="hero-img">
+        <div class="hero-img-placeholder">📸 Фото<br>косметолога</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
+      <div class="stat-card">
+        <div class="stat-num">7+</div>
+        <div class="stat-label">років<br>досвіду</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">задоволених<br>клієнток</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🏥</span> Сертифіковані препарати</div>
+  <div class="trust-item"><span class="trust-icon">✦</span> Авторський протокол</div>
+  <div class="trust-item"><span class="trust-icon">🛡️</span> Гарантія корекції</div>
+  <div class="trust-item"><span class="trust-icon">📋</span> Безкоштовна консультація</div>
+  <div class="trust-item"><span class="trust-icon">⭐</span> 4.9 рейтинг</div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">Про процедуру</div>
+  <div class="section-title">Не просто збільшення —<br><em>це мистецтво форми</em></div>
+  <div class="about-grid">
+    <div class="about-img fade-in">📸 Фото процедури<br><br><small style="color:#B08090">або до/після результат</small></div>
+    <div class="about-text fade-in">
+      <div class="section-sub">Більшість клієнток приходять не за «більшими губами» — вони хочуть виглядати свіжо і жіночно. Щоб оточуючі не питали «ти щось зробила?», а казали «ти чудово виглядаєш».</div>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">💉</div>
+          <div>
+            <div class="feature-title">Протокол «Природний об'єм»</div>
+            <div class="feature-desc">Введення по контуру + центральна зона. Симетрія і пропорція для кожної — індивідуально за анатомією губ.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div>
+            <div class="feature-title">Результат 8–12 місяців</div>
+            <div class="feature-desc">Сертифіковані гіалуронові філери класу Premium. Не треба повторювати кожні 2–3 місяці.</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🌿</div>
+          <div>
+            <div class="feature-title">Мінімальний дискомфорт</div>
+            <div class="feature-desc">Анестезуючий крем + тонкі ін'єкційні голки. Більшість клієнток оцінюють больові відчуття на 1–2 з 10.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCEDURE STEPS -->
+<section class="procedure" id="procedure">
+  <div class="section-label" style="color:#F5A0AC;">Як це відбувається</div>
+  <div class="section-title" style="color:#fff;">Протокол від A до Z —<br><em style="color:var(--rose);">60 хвилин вашого часу</em></div>
+  <div class="steps-grid fade-in">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-time">10 хв</div>
+      <div class="step-title">Консультація</div>
+      <div class="step-desc">Аналіз форми губ, вибір об'єму і форми, відповіді на всі питання перед процедурою.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-time">15 хв</div>
+      <div class="step-title">Анестезія</div>
+      <div class="step-desc">Аплікаційний крем наноситься на область губ. Чекаємо поки подіє — комфортно і без поспіху.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-time">20–25 хв</div>
+      <div class="step-title">Введення філера</div>
+      <div class="step-desc">Техніка по контуру + центральна зона. Контроль симетрії на кожному кроці.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-time">10 хв</div>
+      <div class="step-title">Моделювання</div>
+      <div class="step-desc">Фінальна корекція форми, м'який масаж для рівномірного розподілу препарату.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">05</div>
+      <div class="step-time">5 хв</div>
+      <div class="step-title">Результат</div>
+      <div class="step-desc">Фото до/після, рекомендації по догляду письмово. Ви йдете вже з результатом.</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS GALLERY -->
+<section class="results" id="results">
+  <div class="results-header">
+    <div>
+      <div class="section-label">Портфоліо</div>
+      <div class="section-title">Роботи —<br><em>до і після</em></div>
+    </div>
+    <div class="section-sub" style="max-width:320px;">Реальні результати клієнток. Всі фото зроблені одразу після процедури і через 2 тижні.</div>
+  </div>
+  <div class="gallery fade-in">
+    <div class="gallery-item">
+      <span style="font-size:3rem;">📸</span>
+      <span>Фото роботи 1</span>
+      <span class="gallery-tag">До / Після</span>
+      <span class="gallery-badge">Натуральний об'єм</span>
+    </div>
+    <div class="gallery-item">
+      <span style="font-size:3rem;">📸</span>
+      <span>Фото роботи 2</span>
+      <span class="gallery-tag">До / Після</span>
+      <span class="gallery-badge">Корекція форми</span>
+    </div>
+    <div class="gallery-item">
+      <span style="font-size:3rem;">📸</span>
+      <span>Фото роботи 3</span>
+      <span class="gallery-tag">До / Після</span>
+      <span class="gallery-badge">Перший раз</span>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER FORM -->
+<section class="offer" id="contact">
+  <div class="offer-left fade-in">
+    <h2>Безкоштовний чек-ап — просто прийди подивитись</h2>
+    <p>15 хвилин. Я покажу тобі фото до/після, поясню що підійде саме твоїм губам і відповім на всі питання. Без тиску і без зобов'язань записатись.</p>
+    <div class="offer-perks">
+      <div class="offer-perk">Консультація повністю безкоштовна</div>
+      <div class="offer-perk">Можеш прийти просто подивитись</div>
+      <div class="offer-perk">Гарантія корекції через 2 тижні</div>
+      <div class="offer-perk">Сертифіковані препарати класу Premium</div>
+    </div>
+    <a href="tel:+380980000000" style="color:rgba(255,255,255,0.9);font-size:1.3rem;font-weight:700;font-family:var(--font-display);text-decoration:none;">+38 098 000-00-00</a>
+  </div>
+  <div class="offer-form fade-in">
+    <div class="form-title">Записатись на чек-ап</div>
+    <div class="form-sub">Заповни форму — передзвоню протягом 15 хвилин</div>
+    <form onsubmit="return false;">
+      <div class="form-group"><input type="text" placeholder="Твоє ім'я" required></div>
+      <div class="form-group"><input type="tel" placeholder="Номер телефону" required></div>
+      <div class="form-group"><input type="text" placeholder="Зручний час для дзвінка"></div>
+      <button type="submit" class="form-submit" onclick="this.textContent='✓ Заявку прийнято!';this.style.background='#2D8A4E'">Записатись безкоштовно →</button>
+    </form>
+    <div class="form-note">Натискаючи кнопку, ти погоджуєшся з обробкою персональних даних</div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why">
+  <div style="text-align:center;">
+    <div class="section-label">Чому обирають мене</div>
+    <div class="section-title">6 причин <em>довіряти</em></div>
+  </div>
+  <div class="why-grid fade-in">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div class="why-title">Ніяких «качиних губ»</div>
+      <div class="why-desc">Техніка введення по контуру дає природний результат — оточуючі помічають що ти гарно виглядаєш, але не розуміють чому.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div class="why-title">Результат тримається рік</div>
+      <div class="why-desc">Не 2–3 місяці як у більшості. Авторська техніка + препарати Premium класу = 8–12 місяців без корекцій.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div class="why-title">Набряк спадає за 24 год</div>
+      <div class="why-desc">Більшість клієнток йдуть після процедури у кафе або на роботу. Без тижня набряків і синців.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div class="why-title">Гарантія корекції</div>
+      <div class="why-desc">Якщо через 2 тижні щось не влаштовує у формі або симетрії — корекція безкоштовно. Без умов і питань.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">05</div>
+      <div class="why-title">Тільки сертифіковані препарати</div>
+      <div class="why-desc">Працюю виключно з офіційними постачальниками. Кожен препарат має сертифікат відповідності.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">06</div>
+      <div class="why-title">Безкоштовна консультація</div>
+      <div class="why-desc">Можеш прийти просто подивитись — без тиску і зобов'язань. 15 хвилин, щоб розвіяти всі сумніви.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIST -->
+<section class="specialist">
+  <div class="section-label">Хто буде робити</div>
+  <div class="section-title">Твій майстер —<br><em>Анастасія Коваль</em></div>
+  <div class="spec-grid fade-in">
+    <div class="spec-photo">📸 Фото майстра</div>
+    <div>
+      <div class="spec-name">Анастасія Коваль</div>
+      <div class="spec-role">Косметолог-естетист · Черкаси</div>
+      <div class="spec-bio">7 років у естетичній косметології. Спеціалізація — контурна пластика губ і корекція зони обличчя. Навчалась у Києві та Варшаві, регулярно проходжу майстер-класи провідних European aesthetics докторів. Автор протоколу «Природний об'єм» — для тих хто хоче результат без «зробленості».</div>
+      <div class="spec-stats">
+        <div class="spec-stat">
+          <div class="spec-stat-num">7+</div>
+          <div class="spec-stat-label">років досвіду</div>
+        </div>
+        <div class="spec-stat">
+          <div class="spec-stat-num">500+</div>
+          <div class="spec-stat-label">процедур губ</div>
+        </div>
+        <div class="spec-stat">
+          <div class="spec-stat-num">98%</div>
+          <div class="spec-stat-label">задоволені</div>
+        </div>
+      </div>
+      <div class="certs">
+        <span class="cert-tag">✓ Сертифікат Juvederm</span>
+        <span class="cert-tag">✓ Restylane Certified</span>
+        <span class="cert-tag">✓ Ліцензія МОЗ</span>
+        <span class="cert-tag">✓ Belotero Advanced</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews" id="reviews">
+  <div class="section-label">Відгуки</div>
+  <div class="section-title" style="color:#fff;">Що кажуть <em style="color:var(--rose);">клієнтки</em></div>
+  <div class="reviews-grid fade-in">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Три роки відкладала, бо боялась виглядати неприродно. Прийшла «просто подивитись» — пішла з результатом. Через місяць чоловік сказав що я добре виглядаю. Він досі не знає що я щось зробила.»</div>
+      <div class="review-author">
+        <div class="review-avatar">О</div>
+        <div>
+          <div class="review-name">Олена, 29 років</div>
+          <div class="review-meta">Черкаси · листопад 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«До цього робила в іншому місці — залишилась незадоволена асиметрією. Анастасія зробила корекцію і пояснила де була помилка. Результат тримається вже 10 місяців. Більше нікуди не піду.»</div>
+      <div class="review-author">
+        <div class="review-avatar">М</div>
+        <div>
+          <div class="review-name">Марина, 38 років</div>
+          <div class="review-meta">Черкаси · жовтень 2024</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Думала що в 44 роки це недоречно. Невеликий об'єм прибрав втомлений вигляд. Набряк спав за 24 години — пішла на роботу наступного дня. Колеги думають що я просто відпочила.»</div>
+      <div class="review-author">
+        <div class="review-avatar">В</div>
+        <div>
+          <div class="review-name">Вікторія, 44 роки</div>
+          <div class="review-meta">Черкаси · вересень 2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div style="text-align:center;">
+    <div class="section-label">Часті питання</div>
+    <div class="section-title">Питаєш — <em>відповідаю</em></div>
+  </div>
+  <div class="faq-grid fade-in">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">Боляче чи ні? <div class="faq-icon">+</div></div>
+      <div class="faq-answer">Перед процедурою наноситься анестезуючий крем і чекаємо 15 хвилин поки він подіє. Більшість клієнток оцінюють дискомфорт на 1–3 з 10. Якщо потрібна додаткова анестезія — я завжди роблю.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">Скільки триватиме набряк? <div class="faq-icon">+</div></div>
+      <div class="faq-answer">У більшості — 24–48 годин. Є клієнтки які йдуть після процедури одразу у кафе або на роботу. У рідкісних випадках (залежить від індивідуальних особливостей) — до 5 днів. Я завжди чесно попереджаю заздалегідь.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">Як довго тримається результат? <div class="faq-icon">+</div></div>
+      <div class="faq-answer">За моїм протоколом — 8–12 місяців. Залежить від обміну речовин і кількості введеного препарату. Я використовую філери Premium класу від офіційних постачальників — вони тримаються довше.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">Чи можна якщо перший раз? <div class="faq-icon">+</div></div>
+      <div class="faq-answer">Так, більшість моїх клієнток роблять вперше. Спочатку — консультація, де я покажу фото, поясню що підійде саме тобі і відповім на всі питання. Потім — твоє рішення без жодного тиску.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-question">Яка ціна процедури? <div class="faq-icon">+</div></div>
+      <div class="faq-answer">Від 2500 грн — залежить від кількості філера і складності. Точну вартість скажу після консультації, коли побачу твої губи і зрозумію що потрібно. Консультація — завжди безкоштовно.</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="section-label">Швидкий запис</div>
+  <div class="section-title">Дай відповідь на 4 питання —<br><em>і отримай персональну пропозицію</em></div>
+  <div class="section-sub" style="margin: 0 auto;">Це займе 1 хвилину. Я зв'яжусь з тобою і підберу оптимальний варіант.</div>
+
+  <div class="quiz-wrap">
+    <!-- STEPS -->
+    <div id="quiz-steps">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-step-label" id="quiz-step-label">Питання 1 з 4</div>
+        <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-bar" style="width:25%"></div></div>
+      </div>
+      <div class="quiz-q" id="quiz-question">Що тебе найбільше цікавить?</div>
+      <div class="quiz-options" id="quiz-options">
+        <div class="quiz-opt" onclick="selectOpt(this)">Збільшення об'єму губ</div>
+        <div class="quiz-opt" onclick="selectOpt(this)">Корекція форми і симетрії</div>
+        <div class="quiz-opt" onclick="selectOpt(this)">Хочу виправити попередню роботу</div>
+        <div class="quiz-opt" onclick="selectOpt(this)">Хочу зрозуміти що мені взагалі підійде</div>
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-btn-next" id="quiz-next" onclick="nextStep()" disabled>Далі →</button>
+      </div>
+    </div>
+
+    <!-- RESULT FORM -->
+    <div class="quiz-result" id="quiz-result">
+      <div style="font-size:2.5rem;margin-bottom:16px;">💌</div>
+      <h3>Чудово! Я підготую<br>пропозицію саме для тебе</h3>
+      <p>Залиш свій номер телефону — я зв'яжусь протягом 15 хвилин і запишу тебе на безкоштовний чек-ап у зручний час.</p>
+      <div class="quiz-result-form">
+        <input type="text" placeholder="Твоє ім'я" id="quiz-name">
+        <input type="tel" placeholder="Номер телефону (WhatsApp / Viber)" id="quiz-phone">
+        <button onclick="submitQuiz()">Отримати пропозицію і записатись безкоштовно →</button>
+      </div>
+      <div class="form-note" style="margin-top:12px;">Дзвоню тільки в робочий час. Без спаму.</div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="quiz-success" id="quiz-success">
+      <div class="checkmark">✅</div>
+      <h3>Заявку прийнято!</h3>
+      <p>Я зателефоную тобі протягом 15 хвилин і запишу на безкоштовний чек-ап. Якщо хочеш написати відразу — <strong>+38 098 000-00-00</strong> (WhatsApp / Viber).</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Анастасія <span>Коваль</span></div>
+      <div class="footer-bio">Косметолог-естетист у Черкасах. Спеціалізація — збільшення губ і контурна пластика. Авторський протокол «Природний об'єм» для природного результату.</div>
+      <div class="footer-socials" style="margin-top:24px;">
+        <a href="#" class="social-link">IG</a>
+        <a href="#" class="social-link">FB</a>
+        <a href="#" class="social-link">TG</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Навігація</h4>
+      <a href="#about">Про процедуру</a>
+      <a href="#procedure">Як це відбувається</a>
+      <a href="#results">Роботи</a>
+      <a href="#reviews">Відгуки</a>
+      <a href="#quiz">Записатись</a>
+    </div>
+    <div class="footer-col">
+      <h4>Контакти</h4>
+      <a href="tel:+380980000000">+38 098 000-00-00</a>
+      <a href="#">м. Черкаси</a>
+      <a href="#">Instagram</a>
+      <a href="#">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2025 Анастасія Коваль · Всі права захищені</div>
+    <a href="tel:+380980000000" class="footer-phone">+38 098 000-00-00</a>
+  </div>
+</footer>
+
+<!-- STICKY CTA -->
+<a href="#quiz" class="sticky-cta">Записатись →</a>
+
+<script>
+// QUIZ LOGIC
+const questions = [
+  {
+    q: "Що тебе найбільше цікавить?",
+    opts: ["Збільшення об'єму губ","Корекція форми і симетрії","Хочу виправити попередню роботу","Хочу зрозуміти що мені підійде"]
+  },
+  {
+    q: "Ти вже робила збільшення губ?",
+    opts: ["Ні, це буде вперше","Так, один раз","Так, кілька разів","Так, але результат не сподобався"]
+  },
+  {
+    q: "Що тебе найбільше турбує?",
+    opts: ["Страшно що буде «зробленість»","Переживаю за біль і дискомфорт","Хвилює набряк і реабілітація","Не розумію скільки це коштує"]
+  },
+  {
+    q: "Коли тобі зручно прийти на чек-ап?",
+    opts: ["Цього тижня","Наступного тижня","Вибрати конкретну дату по телефону","Поки просто дивлюсь і збираю інформацію"]
+  }
+];
+
+let step = 0;
+let answers = [];
+
+function updateQuiz() {
+  const cur = questions[step];
+  document.getElementById('quiz-question').textContent = cur.q;
+  document.getElementById('quiz-step-label').textContent = `Питання ${step+1} з ${questions.length}`;
+  document.getElementById('quiz-bar').style.width = `${((step+1)/questions.length)*100}%`;
+  const optsEl = document.getElementById('quiz-options');
+  optsEl.innerHTML = '';
+  cur.opts.forEach(o => {
+    const d = document.createElement('div');
+    d.className = 'quiz-opt';
+    d.textContent = o;
+    d.onclick = () => selectOpt(d);
+    optsEl.appendChild(d);
+  });
+  document.getElementById('quiz-next').disabled = true;
+}
+
+function selectOpt(el) {
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('quiz-next').disabled = false;
+}
+
+function nextStep() {
+  const selected = document.querySelector('.quiz-opt.selected');
+  if (!selected) return;
+  answers.push(selected.textContent);
+  step++;
+  if (step < questions.length) {
+    updateQuiz();
+  } else {
+    document.getElementById('quiz-steps').style.display = 'none';
+    document.getElementById('quiz-result').style.display = 'block';
+  }
+}
+
+function submitQuiz() {
+  const name = document.getElementById('quiz-name').value;
+  const phone = document.getElementById('quiz-phone').value;
+  if (!phone) { alert('Будь ласка, вкажи номер телефону'); return; }
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-success').style.display = 'block';
+}
+
+// FAQ
+function toggleFaq(el) {
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) el.classList.add('open');
+}
+
+// SCROLL ANIMATIONS
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+updateQuiz();
+</script>
+</body>
+</html>
