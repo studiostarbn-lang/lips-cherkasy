@@ -14,6 +14,20 @@
   gtag('js', new Date());
   gtag('config', 'G-XXXXXXXXXX');
 </script>
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '920914060670953');
+  fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -670,7 +684,7 @@
     <li><a href="#reviews">Відгуки</a></li>
     <li><a href="#quiz">Запис</a></li>
   </ul>
-  <a href="tel:+380980000000" class="nav-phone">+38 098 000-00-00</a>
+  <a href="tel:+380733403173" class="nav-phone">0733403173</a>
 </nav>
 
 <!-- HERO -->
@@ -839,7 +853,7 @@
       <div class="offer-perk">Залишаю препарат на докорекцію у разі потреби</div>
       <div class="offer-perk">Сертифіковані препарати класу Premium</div>
     </div>
-    <a href="tel:+380980000000" style="color:rgba(255,255,255,0.9);font-size:1.3rem;font-weight:700;font-family:var(--font-display);text-decoration:none;">+38 098 000-00-00</a>
+    <a href="tel:+380733403173" style="color:rgba(255,255,255,0.9);font-size:1.3rem;font-weight:700;font-family:var(--font-display);text-decoration:none;">0733403173</a>
   </div>
   <div class="offer-form fade-in">
     <div class="form-title">Записатись на чек-ап</div>
@@ -1042,7 +1056,7 @@
     <div class="quiz-success" id="quiz-success">
       <div class="checkmark">✅</div>
       <h3>Заявку прийнято!</h3>
-      <p>Я зателефоную тобі протягом 15 хвилин і запишу на безкоштовний чек-ап. Якщо хочеш написати відразу — <strong>+38 098 000-00-00</strong> (WhatsApp / Viber).</p>
+      <p>Я зателефоную тобі протягом 15 хвилин і запишу на безкоштовний чек-ап. Якщо хочеш написати відразу — <strong>0733403173</strong> (WhatsApp / Viber).</p>
     </div>
   </div>
 </section>
@@ -1068,7 +1082,7 @@
     </div>
     <div class="footer-col">
       <h4>Контакти</h4>
-      <a href="tel:+380980000000">+38 098 000-00-00</a>
+      <a href="tel:+380733403173">0733403173</a>
       <a href="#">м. Черкаси</a>
       <a href="https://www.instagram.com/melnykova_cosmetolog/" rel="noopener" target="_blank">Instagram</a>
       <a href="#">WhatsApp</a>
@@ -1077,7 +1091,7 @@
   </div>
   <div class="footer-bottom">
     <div>© 2026 Анастасія Мельникова · Всі права захищені</div>
-    <a href="tel:+380980000000" class="footer-phone">+38 098 000-00-00</a>
+    <a href="tel:+380733403173" class="footer-phone">0733403173</a>
   </div>
 </footer>
 
@@ -1191,6 +1205,9 @@ async function submitLead(payload) {
         event_category: 'lead',
         event_label: payload?.source || 'form'
       });
+    }
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead');
     }
   } catch (_) {}
   return data;
