@@ -45,23 +45,6 @@ async function sendTelegram({ botToken, chatId, text }) {
   }
 }
 
-async function resolveChatIdFromUpdates(botToken) {
-  const tgUrl = `https://api.telegram.org/bot${botToken}/getUpdates?timeout=0&limit=5`;
-  const tgRes = await fetch(tgUrl, { method: 'GET' });
-  const tgJson = await tgRes.json().catch(() => ({}));
-  const result = tgJson?.result;
-  if (!Array.isArray(result) || result.length === 0) return '';
-
-  const last = result[result.length - 1];
-  return (
-    last?.message?.chat?.id ||
-    last?.edited_message?.chat?.id ||
-    last?.channel_post?.chat?.id ||
-    last?.edited_channel_post?.chat?.id ||
-    ''
-  );
-}
-
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -75,7 +58,12 @@ exports.handler = async (event) => {
   const chatId = process.env.TELEGRAM_CHAT_ID;
   const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
   const telegramHasToken = Boolean(botToken);
-  const telegramWarning = telegramHasToken ? null : 'Telegram is not configured (missing token)';
+  const telegramHasChatId = Boolean(chatId);
+  const telegramWarning = !telegramHasToken
+    ? 'Telegram is not configured (missing token)'
+    : !telegramHasChatId
+      ? 'Telegram is not configured (missing chat id)'
+      : null;
 
   let payload = {};
   try {
@@ -100,13 +88,12 @@ exports.handler = async (event) => {
     const text = formatLeadText(payload, meta);
 
     let telegramSent = false;
-    let telegramChatIdResolved = Boolean(chatId) || false;
+    let sheetsSent = false;
+    let sheetsWarning = null;
 
-    if (telegramHasToken) {
-      const resolvedChatId = chatId || (await resolveChatIdFromUpdates(botToken));
-      if (resolvedChatId) {
-        telegramChatIdResolved = true;
-        await sendTelegram({ botToken, chatId: resolvedChatId, text });
+    if (telegramHasToken && telegramHasChatId) {
+      if (chatId) {
+        await sendTelegram({ botToken, chatId, text });
         telegramSent = true;
       }
     }
@@ -114,7 +101,7 @@ exports.handler = async (event) => {
     // Best-effort write to Google Sheets via Apps Script endpoint.
     // Never fail the whole lead flow if Sheets write fails.
     if (googleAppsScriptUrl) {
-      await fetch(googleAppsScriptUrl, {
+      const sheetsRes = await fetch(googleAppsScriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -126,15 +113,25 @@ exports.handler = async (event) => {
           receivedAt: new Date().toISOString(),
           meta
         })
-      }).catch(() => {});
+      }).catch(() => null);
+      if (sheetsRes && sheetsRes.ok) {
+        sheetsSent = true;
+      } else {
+        sheetsWarning = 'Google Sheets write failed (check Apps Script deployment and permissions)';
+      }
     }
 
+    const warnings = [telegramWarning, sheetsWarning].filter(Boolean);
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
       body: JSON.stringify({
         ok: true,
-        warning: telegramWarning || (!telegramSent && telegramHasToken ? 'Telegram chatId not resolved (send /start or any message to the bot first)' : null)
+        warning: warnings.length ? warnings.join(' | ') : null,
+        integrations: {
+          telegramSent,
+          sheetsSent
+        }
       })
     };
   } catch (err) {

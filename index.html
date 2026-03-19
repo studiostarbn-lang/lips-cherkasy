@@ -1260,17 +1260,15 @@ if (leadForm) {
 }
 
 function extractUA9(value) {
-  // Allow user to paste:
-  // - 0955887930 (local, with leading 0)
-  // - 380955887930 / +380955887930 (E.164)
-  // - 955887930 (just subscriber digits)
   let digits = String(value || '').replace(/\D/g, '');
   if (!digits) return '';
 
-  if (digits.startsWith('38')) digits = digits.slice(2); // +380...
-  else if (digits.startsWith('0') && digits.length > 1) digits = digits.slice(1); // 0XXXXXXXXX
+  // Normalize common UA formats to 9 digits after +380
+  if (digits.startsWith('380')) digits = digits.slice(3);
+  else if (digits.startsWith('80')) digits = digits.slice(2);
+  else if (digits.startsWith('0')) digits = digits.slice(1);
 
-  if (digits.length > 9) digits = digits.slice(-9);
+  if (digits.length > 9) digits = digits.slice(0, 9);
   return digits;
 }
 
@@ -1302,14 +1300,38 @@ function formatPhoneUI(value) {
 
 const leadPhoneInput = document.getElementById('lead-phone');
 if (leadPhoneInput) {
+  leadPhoneInput.addEventListener('focus', () => {
+    if (!leadPhoneInput.value) leadPhoneInput.value = '+380';
+    const pos = leadPhoneInput.value.length;
+    leadPhoneInput.setSelectionRange(pos, pos);
+  });
+  leadPhoneInput.addEventListener('click', () => {
+    const pos = leadPhoneInput.value.length;
+    leadPhoneInput.setSelectionRange(pos, pos);
+  });
   leadPhoneInput.addEventListener('input', () => {
-    leadPhoneInput.value = formatPhoneUI(leadPhoneInput.value);
+    const next = formatPhoneUI(leadPhoneInput.value);
+    leadPhoneInput.value = next;
+    const pos = next.length;
+    leadPhoneInput.setSelectionRange(pos, pos);
   });
 }
 const quizPhoneInput = document.getElementById('quiz-phone');
 if (quizPhoneInput) {
+  quizPhoneInput.addEventListener('focus', () => {
+    if (!quizPhoneInput.value) quizPhoneInput.value = '+380';
+    const pos = quizPhoneInput.value.length;
+    quizPhoneInput.setSelectionRange(pos, pos);
+  });
+  quizPhoneInput.addEventListener('click', () => {
+    const pos = quizPhoneInput.value.length;
+    quizPhoneInput.setSelectionRange(pos, pos);
+  });
   quizPhoneInput.addEventListener('input', () => {
-    quizPhoneInput.value = formatPhoneUI(quizPhoneInput.value);
+    const next = formatPhoneUI(quizPhoneInput.value);
+    quizPhoneInput.value = next;
+    const pos = next.length;
+    quizPhoneInput.setSelectionRange(pos, pos);
   });
 }
 
