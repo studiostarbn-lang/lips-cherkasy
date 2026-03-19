@@ -860,7 +860,7 @@
     <div class="form-sub">Заповни форму — передзвоню протягом 15 хвилин</div>
     <form id="lead-form">
       <div class="form-group"><input type="text" placeholder="Твоє ім'я" id="lead-name" autocomplete="name"></div>
-      <div class="form-group"><input type="tel" placeholder="0733403173" id="lead-phone" required autocomplete="tel" inputmode="numeric" maxlength="10" pattern="0[0-9]{9}"></div>
+      <div class="form-group"><input type="tel" placeholder="+380 (__) ___-__-__" id="lead-phone" required autocomplete="tel" inputmode="tel"></div>
       <div class="form-group"><input type="text" placeholder="Зручний час для дзвінка" id="lead-time" autocomplete="off"></div>
       <button type="submit" class="form-submit" id="lead-submit">Записатись безкоштовно →</button>
     </form>
@@ -1046,7 +1046,7 @@
       <p>Залиш свій номер телефону — я зв'яжусь протягом 15 хвилин і запишу тебе на безкоштовний чек-ап у зручний час.</p>
       <div class="quiz-result-form">
         <input type="text" placeholder="Твоє ім'я" id="quiz-name">
-        <input type="tel" placeholder="0733403173" id="quiz-phone" required autocomplete="tel" inputmode="numeric" maxlength="10" pattern="0[0-9]{9}">
+        <input type="tel" placeholder="+380 (__) ___-__-__" id="quiz-phone" required autocomplete="tel" inputmode="tel">
         <button onclick="submitQuiz()">Отримати пропозицію і записатись безкоштовно →</button>
       </div>
       <div class="form-note" style="margin-top:12px;">Дзвоню тільки в робочий час. Без спаму.</div>
@@ -1160,16 +1160,18 @@ function nextStep() {
 
 function submitQuiz() {
   const name = document.getElementById('quiz-name').value;
-    const phone = normalizePhone(document.getElementById('quiz-phone').value);
-    if (!/^0[0-9]{9}$/.test(phone)) { alert('Вкажи номер телефону у форматі 0733403173'); return; }
+  const phone = normalizePhoneE164(document.getElementById('quiz-phone').value);
+  if (!phone) { alert('Вкажи номер телефону у форматі +380 (__) ___-__-__.'); return; }
+
   submitLead({
     source: 'quiz',
     name,
     phone,
     answers
-  }).then(() => {
+  }).then((data) => {
     document.getElementById('quiz-result').style.display = 'none';
     document.getElementById('quiz-success').style.display = 'block';
+    if (data?.warning) alert(data.warning);
   }).catch(() => {
     alert('Не вдалось відправити заявку. Спробуй ще раз або напиши в месенджер.');
   });
@@ -1221,15 +1223,15 @@ if (leadForm) {
     const btn = document.getElementById('lead-submit');
     const status = document.getElementById('lead-status');
     const name = document.getElementById('lead-name')?.value || '';
-    const phone = normalizePhone(document.getElementById('lead-phone')?.value || '');
+    const phone = normalizePhoneE164(document.getElementById('lead-phone')?.value || '');
     const time = document.getElementById('lead-time')?.value || '';
 
     status.className = 'form-status';
     status.classList.remove('success', 'error');
     status.textContent = '';
 
-    if (!/^0[0-9]{9}$/.test(phone)) {
-      status.textContent = 'Будь ласка, вкажи номер телефону у форматі 0733403173.';
+    if (!phone) {
+      status.textContent = 'Будь ласка, вкажи номер телефону у форматі +380 (__) ___-__-__.';
       status.classList.add('error');
       return;
     }
@@ -1239,11 +1241,12 @@ if (leadForm) {
     btn.textContent = 'Відправляю...';
 
     try {
-      await submitLead({ source: 'offer_form', name, phone, time });
+      const data = await submitLead({ source: 'offer_form', name, phone, time });
       btn.textContent = '✓ Заявку прийнято!';
       btn.style.background = '#2D8A4E';
       status.textContent = 'Дякую! Я звʼяжусь з тобою протягом 15 хвилин.';
       status.classList.add('success');
+      if (data?.warning) status.textContent += ' ' + data.warning;
       leadForm.reset();
     } catch (err) {
       btn.textContent = oldText;
@@ -1256,30 +1259,57 @@ if (leadForm) {
   });
 }
 
-function normalizePhone(value) {
-  const digits = String(value || '').replace(/\D/g, '');
+function extractUA9(value) {
+  // Allow user to paste:
+  // - 0955887930 (local, with leading 0)
+  // - 380955887930 / +380955887930 (E.164)
+  // - 955887930 (just subscriber digits)
+  let digits = String(value || '').replace(/\D/g, '');
   if (!digits) return '';
-  let d = digits;
-  // +380XXXXXXXXX -> 0XXXXXXXXX
-  if (d.length === 12 && d.startsWith('38')) d = d.slice(2);
-  // If user pasted already without leading 0
-  if (d.length === 9) d = '0' + d;
-  if (d.length > 10) d = d.slice(-10);
-  if (d.length !== 10) return d;
-  return d;
+
+  if (digits.startsWith('38')) digits = digits.slice(2); // +380...
+  else if (digits.startsWith('0') && digits.length > 1) digits = digits.slice(1); // 0XXXXXXXXX
+
+  if (digits.length > 9) digits = digits.slice(-9);
+  return digits;
 }
 
-// Live phone mask: keep only digits and max 10 chars
+function normalizePhoneE164(value) {
+  const subscriber = extractUA9(value);
+  if (!subscriber || subscriber.length !== 9) return '';
+  return '+380' + subscriber;
+}
+
+function formatPhoneUI(value) {
+  const subscriber = extractUA9(value);
+  const a = subscriber.slice(0, 2);
+  const b = subscriber.slice(2, 5);
+  const c = subscriber.slice(5, 7);
+  const d = subscriber.slice(7, 9);
+
+  let out = '+380';
+  if (subscriber.length === 0) return out;
+
+  if (a.length) {
+    out += ' (' + a;
+    if (a.length === 2) out += ')';
+  }
+  if (b.length) out += ' ' + b;
+  if (c.length) out += '-' + c;
+  if (d.length) out += '-' + d;
+  return out;
+}
+
 const leadPhoneInput = document.getElementById('lead-phone');
 if (leadPhoneInput) {
   leadPhoneInput.addEventListener('input', () => {
-    leadPhoneInput.value = normalizePhone(leadPhoneInput.value);
+    leadPhoneInput.value = formatPhoneUI(leadPhoneInput.value);
   });
 }
 const quizPhoneInput = document.getElementById('quiz-phone');
 if (quizPhoneInput) {
   quizPhoneInput.addEventListener('input', () => {
-    quizPhoneInput.value = normalizePhone(quizPhoneInput.value);
+    quizPhoneInput.value = formatPhoneUI(quizPhoneInput.value);
   });
 }
 
