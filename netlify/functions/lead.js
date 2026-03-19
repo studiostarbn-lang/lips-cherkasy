@@ -99,10 +99,15 @@ exports.handler = async (event) => {
   try {
     const text = formatLeadText(payload, meta);
 
+    let telegramSent = false;
+    let telegramChatIdResolved = Boolean(chatId) || false;
+
     if (telegramHasToken) {
       const resolvedChatId = chatId || (await resolveChatIdFromUpdates(botToken));
       if (resolvedChatId) {
+        telegramChatIdResolved = true;
         await sendTelegram({ botToken, chatId: resolvedChatId, text });
+        telegramSent = true;
       }
     }
 
@@ -127,7 +132,10 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ ok: true, warning: telegramWarning })
+      body: JSON.stringify({
+        ok: true,
+        warning: telegramWarning || (!telegramSent && telegramHasToken ? 'Telegram chatId not resolved (send /start or any message to the bot first)' : null)
+      })
     };
   } catch (err) {
     return {
