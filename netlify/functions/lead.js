@@ -25,6 +25,7 @@ function formatLeadText(payload, meta) {
 }
 
 async function sendTelegram({ botToken, chatId, text }) {
+  if (!chatId) throw new Error('Missing chatId');
   const tgUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
   const tgRes = await fetch(tgUrl, {
     method: 'POST',
@@ -44,6 +45,23 @@ async function sendTelegram({ botToken, chatId, text }) {
   }
 }
 
+async function resolveChatIdFromUpdates(botToken) {
+  const tgUrl = `https://api.telegram.org/bot${botToken}/getUpdates?timeout=0&limit=5`;
+  const tgRes = await fetch(tgUrl, { method: 'GET' });
+  const tgJson = await tgRes.json().catch(() => ({}));
+  const result = tgJson?.result;
+  if (!Array.isArray(result) || result.length === 0) return '';
+
+  const last = result[result.length - 1];
+  return (
+    last?.message?.chat?.id ||
+    last?.edited_message?.chat?.id ||
+    last?.channel_post?.chat?.id ||
+    last?.edited_channel_post?.chat?.id ||
+    ''
+  );
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
@@ -56,8 +74,8 @@ exports.handler = async (event) => {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
-  const telegramConfigured = Boolean(botToken && chatId);
-  const telegramWarning = telegramConfigured ? null : 'Telegram is not configured';
+  const telegramHasToken = Boolean(botToken);
+  const telegramWarning = telegramHasToken ? null : 'Telegram is not configured (missing token)';
 
   let payload = {};
   try {
@@ -78,11 +96,14 @@ exports.handler = async (event) => {
     ua: event.headers?.['user-agent'] || ''
   };
 
-  const text = formatLeadText(payload, meta);
-
   try {
-    if (telegramConfigured) {
-      await sendTelegram({ botToken, chatId, text });
+    const text = formatLeadText(payload, meta);
+
+    if (telegramHasToken) {
+      const resolvedChatId = chatId || (await resolveChatIdFromUpdates(botToken));
+      if (resolvedChatId) {
+        await sendTelegram({ botToken, chatId: resolvedChatId, text });
+      }
     }
 
     // Best-effort write to Google Sheets via Apps Script endpoint.
