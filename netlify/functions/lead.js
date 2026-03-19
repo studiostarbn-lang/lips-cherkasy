@@ -56,14 +56,8 @@ exports.handler = async (event) => {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
-  if (!botToken || !chatId) {
-    // If Telegram isn't configured yet, still accept the lead (so UI + Facebook Lead event work).
-    return {
-      statusCode: 200,
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ ok: true, warning: 'Telegram is not configured' })
-    };
-  }
+  const telegramConfigured = Boolean(botToken && chatId);
+  const telegramWarning = telegramConfigured ? null : 'Telegram is not configured';
 
   let payload = {};
   try {
@@ -87,7 +81,9 @@ exports.handler = async (event) => {
   const text = formatLeadText(payload, meta);
 
   try {
-    await sendTelegram({ botToken, chatId, text });
+    if (telegramConfigured) {
+      await sendTelegram({ botToken, chatId, text });
+    }
 
     // Best-effort write to Google Sheets via Apps Script endpoint.
     // Never fail the whole lead flow if Sheets write fails.
@@ -110,7 +106,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ ok: true })
+      body: JSON.stringify({ ok: true, warning: telegramWarning })
     };
   } catch (err) {
     return {
