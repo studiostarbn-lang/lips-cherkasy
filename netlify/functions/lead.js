@@ -56,10 +56,11 @@ exports.handler = async (event) => {
   const botToken = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!botToken || !chatId) {
+    // If Telegram isn't configured yet, still accept the lead (so UI + Facebook Lead event work).
     return {
-      statusCode: 500,
+      statusCode: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({ ok: false, error: 'Server is not configured' })
+      body: JSON.stringify({ ok: true, warning: 'Telegram is not configured' })
     };
   }
 

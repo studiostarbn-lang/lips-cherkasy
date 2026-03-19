@@ -860,7 +860,7 @@
     <div class="form-sub">Заповни форму — передзвоню протягом 15 хвилин</div>
     <form id="lead-form">
       <div class="form-group"><input type="text" placeholder="Твоє ім'я" id="lead-name" autocomplete="name"></div>
-      <div class="form-group"><input type="tel" placeholder="Номер телефону" id="lead-phone" required autocomplete="tel"></div>
+      <div class="form-group"><input type="tel" placeholder="0733403173" id="lead-phone" required autocomplete="tel" inputmode="numeric" maxlength="10" pattern="0[0-9]{9}"></div>
       <div class="form-group"><input type="text" placeholder="Зручний час для дзвінка" id="lead-time" autocomplete="off"></div>
       <button type="submit" class="form-submit" id="lead-submit">Записатись безкоштовно →</button>
     </form>
@@ -1046,7 +1046,7 @@
       <p>Залиш свій номер телефону — я зв'яжусь протягом 15 хвилин і запишу тебе на безкоштовний чек-ап у зручний час.</p>
       <div class="quiz-result-form">
         <input type="text" placeholder="Твоє ім'я" id="quiz-name">
-        <input type="tel" placeholder="Номер телефону (WhatsApp / Viber)" id="quiz-phone">
+        <input type="tel" placeholder="0733403173" id="quiz-phone" required autocomplete="tel" inputmode="numeric" maxlength="10" pattern="0[0-9]{9}">
         <button onclick="submitQuiz()">Отримати пропозицію і записатись безкоштовно →</button>
       </div>
       <div class="form-note" style="margin-top:12px;">Дзвоню тільки в робочий час. Без спаму.</div>
@@ -1160,8 +1160,8 @@ function nextStep() {
 
 function submitQuiz() {
   const name = document.getElementById('quiz-name').value;
-  const phone = document.getElementById('quiz-phone').value;
-  if (!phone) { alert('Будь ласка, вкажи номер телефону'); return; }
+    const phone = normalizePhone(document.getElementById('quiz-phone').value);
+    if (!/^0[0-9]{9}$/.test(phone)) { alert('Вкажи номер телефону у форматі 0733403173'); return; }
   submitLead({
     source: 'quiz',
     name,
@@ -1189,7 +1189,8 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
 async function submitLead(payload) {
-  const res = await fetch('/api/lead', {
+  // Netlify Function endpoint
+  const res = await fetch('/.netlify/functions/lead', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
@@ -1220,14 +1221,15 @@ if (leadForm) {
     const btn = document.getElementById('lead-submit');
     const status = document.getElementById('lead-status');
     const name = document.getElementById('lead-name')?.value || '';
-    const phone = document.getElementById('lead-phone')?.value || '';
+    const phone = normalizePhone(document.getElementById('lead-phone')?.value || '');
     const time = document.getElementById('lead-time')?.value || '';
 
     status.className = 'form-status';
-    status.style.display = 'none';
+    status.classList.remove('success', 'error');
+    status.textContent = '';
 
-    if (!phone) {
-      status.textContent = 'Будь ласка, вкажи номер телефону.';
+    if (!/^0[0-9]{9}$/.test(phone)) {
+      status.textContent = 'Будь ласка, вкажи номер телефону у форматі 0733403173.';
       status.classList.add('error');
       return;
     }
@@ -1251,6 +1253,33 @@ if (leadForm) {
     } finally {
       btn.disabled = false;
     }
+  });
+}
+
+function normalizePhone(value) {
+  const digits = String(value || '').replace(/\D/g, '');
+  if (!digits) return '';
+  let d = digits;
+  // +380XXXXXXXXX -> 0XXXXXXXXX
+  if (d.length === 12 && d.startsWith('38')) d = d.slice(2);
+  // If user pasted already without leading 0
+  if (d.length === 9) d = '0' + d;
+  if (d.length > 10) d = d.slice(-10);
+  if (d.length !== 10) return d;
+  return d;
+}
+
+// Live phone mask: keep only digits and max 10 chars
+const leadPhoneInput = document.getElementById('lead-phone');
+if (leadPhoneInput) {
+  leadPhoneInput.addEventListener('input', () => {
+    leadPhoneInput.value = normalizePhone(leadPhoneInput.value);
+  });
+}
+const quizPhoneInput = document.getElementById('quiz-phone');
+if (quizPhoneInput) {
+  quizPhoneInput.addEventListener('input', () => {
+    quizPhoneInput.value = normalizePhone(quizPhoneInput.value);
   });
 }
 
